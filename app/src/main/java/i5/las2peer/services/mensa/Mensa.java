@@ -144,8 +144,14 @@ public class Mensa extends RESTService {
   })
   @ApiOperation(value = "postDishrating", notes = " ")
   public Response postDishrating(String body) {
-    JSONObject body_JSON = (JSONObject) JSONValue.parse(body);
-
+   classes.Rating payloadbodyObject = new classes().new Rating();
+   try { 
+       payloadbodyObject.fromJSON(body);
+   } catch (Exception e) { 
+       e.printStackTrace();
+       JSONObject result = new JSONObject();
+       return Response.status(HttpURLConnection.HTTP_INTERNAL_ERROR).entity("Cannot convert json to object").build();
+   }
 
 
 
